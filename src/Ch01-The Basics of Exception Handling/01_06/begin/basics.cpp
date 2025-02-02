@@ -21,6 +21,7 @@ const string readConfigFile(const string& filename)
 
 int main() 
 {    
+    cout << "This is anupurb's fork. "<< endl;
     cout << "Reading configuration:" << endl;
     string text = readConfigFile("configuration.txt");
     cout << text;
