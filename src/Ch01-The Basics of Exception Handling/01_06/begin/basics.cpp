@@ -21,9 +21,10 @@ const string readConfigFile(const string& filename)
 
 int main() 
 {    
-    cout << "This is anupurb's fork. "<< endl;
+    cout << "This is anupurba's fork. "<< endl;
     cout << "Reading configuration:" << endl;
     string text = readConfigFile("configuration.txt");
+    cout << "This is anupurba's new code space named: Organic Lamp"<<endl;
     cout << text;
     
     return 0;
