@@ -16,16 +16,16 @@ public:
   DiskAccessException(const std::string &msg) : std::runtime_error(msg) {};
 };
 
-class FilePermissionException : public std::runtime_error
+class FilePermissionException : public DiskAccessException
 {
 public:
-  FilePermissionException(const std::string &msg) : std::runtime_error(msg) {};
+  FilePermissionException(const std::string &msg) : DiskAccessException(msg) {};
 };
 
-class FileIOException : public std::runtime_error
+class FileIOException : public FilePermissionException
 {
 public:
-  FileIOException(const std::string &msg) : std::runtime_error(msg) {};
+  FileIOException(const std::string &msg) : FilePermissionException(msg) {};
 };
 
 void triggerException(ErrorType error)
@@ -33,11 +33,11 @@ void triggerException(ErrorType error)
   switch (error)
   {
   case ErrorType::Disk:
-    throw DiskAccessException("DiskAccessException");
+    throw DiskAccessException("Disk Access denied");
   case ErrorType::Permission:
-    throw FilePermissionException("FilePermissionException");
+    throw FilePermissionException("File permissions not sufficient");
   case ErrorType::FileIO:
-    throw FileIOException("FileIOException");
+    throw FileIOException("File IO Exception");
   default:
     break; // No exception thrown
   }
@@ -47,20 +47,22 @@ int main()
 {
   try
   {
-    triggerException(ErrorType::FileIO);
+    triggerException(ErrorType::Permission);
   }
-  catch (const DiskAccessException &e)
+
+  catch (const FileIOException &e)
   {
-    std::cerr << "Error: " << e.what() << std::endl;
+    std::cerr << "FileIOException: " << e.what() << std::endl;
   }
   catch (const FilePermissionException &e)
   {
-    std::cerr << "Error: " << e.what() << std::endl;
+    std::cerr << "FilePermissionException: " << e.what() << std::endl;
   }
-  catch (const FileIOException &e)
+  catch (const DiskAccessException &e)
   {
-    std::cerr << "Error: " << e.what() << std::endl;
+    std::cerr << "DiskAccessException: " << e.what() << std::endl;
   }
+
   catch (...)
   {
     std::cerr << "An unknown exception occurred." << std::endl;
