@@ -34,6 +34,11 @@ void triggerException()
 
 int main()
 {
+    
+    int a = 10;
+    int b = 20;
+    int& p = a;
+    p = b;
     try
     {
         triggerException();

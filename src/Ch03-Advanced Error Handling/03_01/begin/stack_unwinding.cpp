@@ -6,7 +6,11 @@ class A
 {
 public:
   A() { std::cout<<"In the constructor of A"<<std::endl;}
-  ~A() {std::cout<<"In destructor of A"<<std::endl;}
+  ~A() 
+  {
+    std::cout<<"In destructor of A"<<std::endl;
+    //throw("Exception thrown from the class A");
+  }
 };
 
 class B
@@ -31,7 +35,8 @@ int main()
 {
   try
   {
-    std::set_terminate(my_terminate);
+    
+    std::set_terminate(std::terminate);
     std::cout<<"In try block of main"<<std::endl;
     //CreateObjects();
     A a;
