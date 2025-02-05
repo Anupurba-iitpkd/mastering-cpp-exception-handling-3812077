@@ -62,7 +62,6 @@ int main()
   {
     std::cerr << "DiskAccessException: " << e.what() << std::endl;
   }
-
   catch (...)
   {
     std::cerr << "An unknown exception occurred." << std::endl;
