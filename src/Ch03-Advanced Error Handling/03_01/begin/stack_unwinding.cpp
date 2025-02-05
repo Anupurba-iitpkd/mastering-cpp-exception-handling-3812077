@@ -22,20 +22,30 @@ void CreateObjects()
   B b;
 }
 
+void my_terminate()
+{
+  std::cout<<"Call to my terminate"<<std::endl;
+}
+
 int main()
 {
   try
   {
+    std::set_terminate(my_terminate);
     std::cout<<"In try block of main"<<std::endl;
     //CreateObjects();
     A a;
     B b;
-    //throw("Exception thrown from the try block of main.");
-    throw std::runtime_error("Exception thrown from the try block of main.");
+    throw("Exception thrown from the try block of main.");
+    //throw std::runtime_error("Exception thrown from the try block of main.");
   }
   catch(const std::exception& e)
   {
     std::cerr << e.what() << '\n';
+  }
+  catch(...)
+  {
+    std::cerr << "No matching catch block." << '\n';
   }
   
 }
